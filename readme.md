@@ -78,8 +78,8 @@ __У клиента:__
 * __Курбанов И.Р.__: тестировщик.
 
 # Ссылки:
-<font size = 5>1. [Сервер](Ссылка будет потом)</font>  
-<font size = 5>2. [Клиент](Ссылка будет потом)</font>  
+<font size = 5>1. [Сервер](https://github.com/MalyshevAleksey/WebsiteProject/tree/server)</font>  
+<font size = 5>2. [Клиент](https://github.com/MalyshevAleksey/WebsiteProject/tree/client)</font>  
 
 # Стек технологий:
 ## Сервер:
