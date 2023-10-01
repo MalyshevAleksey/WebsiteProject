@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+  <script>
+    const ws = new WebSocket("ws://127.0.0.1:5678/");
+    let x;
+    console.log(ws);
+    ws.onmessage = function(event) {
+      console.log("[Message received from server]", event.data)
+      let data = JSON.parse(event.data);
+      if (data.status === 'authorized') {
+        alert('Авторизирован!');
+      } else {
+        alert('Не верный логин или пароль.');
+      }
+    };
+    function send() {
+      // Получаем значения полей логина и пароля
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+
+      // Создаем объект с данными пользователя
+      let user = {
+        type_query: "signIn",
+        username: username,
+        password: password
+      };
+
+      try {
+        ws.send(JSON.stringify(user));
+      } catch (error) {
+        console.log("Msg not sent ", error);
+      }
+      console.log("Msg sent ", x);
+    }
+  </script>
+</head>
+<body>
+<form>
+  <label for="username">Логин:</label>
+  <input type="text" id="username" name="username"><br><br>
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password"><br><br>
+  <input type="button" value="Войти" onclick="send()">
+</form>
+</body>
+</html>

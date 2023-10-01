@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <script>
+    const ws = new WebSocket("ws://127.0.0.1:5678/");
+    let x;
+    console.log(ws);
+    ws.onmessage = function(event) {
+      console.log("[Message received from server]", event.data)
+      let data = JSON.parse(event.data);
+      if (data.status === 'reg') {
+        alert('Зарегистрирован!');
+      } else {
+        alert('Ошибка');
+      }
+    };
+    function send() {
+      // Получаем значения полей логина и пароля
+      let name = document.getElementById("name").value;
+      let surname = document.getElementById("surname").value;
+      let password = document.getElementById("password").value;
+      let img = document.getElementById("img").value;
+      let phone = document.getElementById("phone").value;
+      let email = document.getElementById("email").value;
+      let school = document.getElementById("school").value;
+      let city = document.getElementById("city").value;
+
+      // Создаем объект с данными пользователя
+      let user = {
+        type_query: "signUp",
+        name: name,
+        surname: surname,
+        password: password,
+        img: img,
+        phone: phone,
+        email: email,
+        school: school,
+        city: city
+      };
+
+      try {
+        ws.send(JSON.stringify(user));
+      } catch (error) {
+        console.log("Msg not sent ", error);
+      }
+      console.log("Msg sent ", x);
+    }
+  </script>
+</head>
+<body>
+<form>
+  <label for="name">Имя:</label>
+  <input type="text" id="name" name="name"><br><br>
+
+  <label for="surname">Фамилия:</label>
+  <input type="text" id="surname" name="surname"><br><br>
+
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password"><br><br>
+
+  <label for="img">Фото профиля:</label>
+  <input type="text" id="img" name="img"><br><br>
+
+  <label for="phone">Номер телефона:</label>
+  <input type="text" id="phone" name="phone"><br><br>
+
+  <label for="email">Почта:</label>
+  <input type="text" id="email" name="email"><br><br>
+
+  <label for="school">Школа:</label>
+  <input type="text" id="school" name="school"><br><br>
+
+  <label for="city">Город:</label>
+  <input type="text" id="city" name="city"><br><br>
+
+  <input type="button" value="Зарегистрироваться" onclick="send()">
+</form>
+</body>
+</html>
